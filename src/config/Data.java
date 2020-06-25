@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package config;
+
+import model.Users;
 
 /**
  *
  * @author syarifuddin
  */
-public class ReservationController {
- 
-    
-    
-    
+public class Data {
+    public static Users userLogin = null;
 }

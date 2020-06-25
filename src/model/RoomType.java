@@ -13,6 +13,7 @@ public class RoomType {
     private int idRoomType;
     private String nameRoomType;
     private int roomRate;
+    private RoomRate roomrate;
 
     public int getIdRoomType() {
         return idRoomType;
@@ -36,6 +37,14 @@ public class RoomType {
 
     public void setRoomRate(int roomRate) {
         this.roomRate = roomRate;
+    }
+
+    public RoomRate getRoomrate() {
+        return roomrate;
+    }
+
+    public void setRoomrate(RoomRate roomrate) {
+        this.roomrate = roomrate;
     }
     
     

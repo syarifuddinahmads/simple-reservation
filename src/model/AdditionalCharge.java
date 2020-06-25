@@ -14,6 +14,7 @@ public class AdditionalCharge {
     private String nameCharge;
     private Double amountCharge;
     private int idReservation;
+    private Reservation reservation;
 
     public int getIdAdditionalCharge() {
         return idAdditionalCharge;
@@ -46,6 +47,15 @@ public class AdditionalCharge {
     public void setIdReservation(int idReservation) {
         this.idReservation = idReservation;
     }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
       
+    
     
 }

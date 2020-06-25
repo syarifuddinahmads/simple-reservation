@@ -5,7 +5,7 @@
  */
 package reservation;
 
-import view.CustomerView;
+import view.LoginView;
 import view.ReservationView;
 
 /**
@@ -18,8 +18,7 @@ public class Reservation {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        new ReservationView().show();
-        new CustomerView().show();
+        new LoginView().show();
     }
     
 }

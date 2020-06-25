@@ -27,6 +27,13 @@ public class Reservation {
     private int checkinBy;
     private int checkoutBy;
     private int travelAgent;
+    private ReservationStatus resStatus;
+    private ReservationType resType;
+    private Users userCheckinBy;
+    private Users userCheckoutBy;
+    private TravelAgent travelagent;
+    private Customer customer;
+    private Room room;
 
     public int getIdReservation() {
         return idReservation;
@@ -147,6 +154,63 @@ public class Reservation {
     public void setTravelAgent(int travelAgent) {
         this.travelAgent = travelAgent;
     }
+
+    public ReservationStatus getResStatus() {
+        return resStatus;
+    }
+
+    public void setResStatus(ReservationStatus resStatus) {
+        this.resStatus = resStatus;
+    }
+
+    public ReservationType getResType() {
+        return resType;
+    }
+
+    public void setResType(ReservationType resType) {
+        this.resType = resType;
+    }
+
+    public Users getUserCheckinBy() {
+        return userCheckinBy;
+    }
+
+    public void setUserCheckinBy(Users userCheckinBy) {
+        this.userCheckinBy = userCheckinBy;
+    }
+
+    public Users getUserCheckoutBy() {
+        return userCheckoutBy;
+    }
+
+    public void setUserCheckoutBy(Users userCheckoutBy) {
+        this.userCheckoutBy = userCheckoutBy;
+    }
+
+    public TravelAgent getTravelagent() {
+        return travelagent;
+    }
+
+    public void setTravelagent(TravelAgent travelagent) {
+        this.travelagent = travelagent;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    
     
     
 }

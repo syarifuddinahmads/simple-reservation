@@ -22,6 +22,8 @@ public class ReservationPayment {
     private Date datePayment;
     private int createdBy;
     private int modifiedBy;
+    private PaymentStatus payStatus;
+    private PaymentType payType;
 
     public int getIdReservationPayment() {
         return idReservationPayment;
@@ -102,6 +104,7 @@ public class ReservationPayment {
     public void setModifiedBy(int modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
+    
     
     
 }

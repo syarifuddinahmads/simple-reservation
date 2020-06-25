@@ -19,6 +19,7 @@ public class Users {
     private int roleUser;
     private String password;
     private int nikUser;
+    private RoleUser userRole;
 
     public int getIdUser() {
         return idUser;
@@ -82,6 +83,14 @@ public class Users {
 
     public void setNikUser(int nikUser) {
         this.nikUser = nikUser;
+    }
+
+    public RoleUser getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(RoleUser userRole) {
+        this.userRole = userRole;
     }
     
     

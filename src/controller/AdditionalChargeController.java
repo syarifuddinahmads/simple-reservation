@@ -9,9 +9,6 @@ package controller;
  *
  * @author syarifuddin
  */
-public class ReservationController {
- 
-    
-    
+public class AdditionalChargeController {
     
 }

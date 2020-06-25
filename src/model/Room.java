@@ -13,6 +13,7 @@ public class Room {
     private int idRoom;
     private int roomNumber;
     private int roomType;
+    private RoomType roomtype;
 
     public int getIdRoom() {
         return idRoom;
@@ -36,6 +37,14 @@ public class Room {
 
     public void setRoomType(int roomType) {
         this.roomType = roomType;
+    }
+
+    public RoomType getRoomtype() {
+        return roomtype;
+    }
+
+    public void setRoomtype(RoomType roomtype) {
+        this.roomtype = roomtype;
     }
    
     
