@@ -5,6 +5,14 @@
  */
 package view;
 
+import controller.TravelAgentController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.TravelAgent;
+
 /**
  *
  * @author syarifuddin
@@ -14,8 +22,15 @@ public class TravelAgenView extends javax.swing.JFrame {
     /**
      * Creates new form TravelAgenView
      */
-    public TravelAgenView() {
+    int idTravelAgent = 0;
+    String nameTravelAgent = "";
+    String codeTravelAgent = "";
+    TravelAgentController travelAgentController;
+
+    public TravelAgenView() throws SQLException {
         initComponents();
+        this.travelAgentController = new TravelAgentController();
+        this.getDataTravelAgent();
     }
 
     /**
@@ -27,21 +42,211 @@ public class TravelAgenView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        tfNama = new javax.swing.JTextField();
+        tfCode = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnSimpan = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTravelAgent = new javax.swing.JTable();
+        btnDelete = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Nama");
+
+        jLabel2.setText("Code");
+
+        btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        tblTravelAgent.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblTravelAgent);
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCancel)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSimpan))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnClose)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEdit)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnDelete))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfCode)
+                                .addComponent(tfNama)))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tfNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSimpan)
+                    .addComponent(btnCancel))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelete)
+                    .addComponent(btnEdit)
+                    .addComponent(btnClose))
+                .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        this.dispose();
+        new ReservationView().show();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        tfNama.setText("");
+        tfCode.setText("");
+        btnSimpan.setText("Simpan");
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        try {
+            nameTravelAgent = tfNama.getText();
+            codeTravelAgent = tfCode.getText();
+            TravelAgent ta = new TravelAgent();
+            ta.setIdTravelAgent(idTravelAgent);
+            ta.setNameTravelAgent(nameTravelAgent);
+            ta.setCodeTravelAgent(codeTravelAgent);
+            this.travelAgentController.insertDataTravelAgent(ta);
+
+            this.getDataTravelAgent();
+            tfNama.setText("");
+            tfCode.setText("");
+            btnSimpan.setText("Simpan");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        int col = 0;
+        int row = tblTravelAgent.getSelectedRow();
+        System.out.println("ROW = " + row);
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Customer belum dipilih, Pilih customer terlebih dahulu !");
+        } else {
+            String id = tblTravelAgent.getModel().getValueAt(row, col).toString();
+            System.out.println("ID = " + id);
+            try {
+                TravelAgent ta = new TravelAgent();
+                ta.setIdTravelAgent(Integer.parseInt(id));
+                TravelAgent travelAgent = this.travelAgentController.getDataTravelAgent(ta).get(0);
+
+                idTravelAgent = travelAgent.getIdTravelAgent();
+                tfNama.setText(travelAgent.getNameTravelAgent());
+                tfCode.setText(travelAgent.getCodeTravelAgent());
+
+                btnSimpan.setText("Update");
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int col = 0;
+        int row = tblTravelAgent.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Travel Agent belum dipilih, Pilih travel agent terlebih dahulu !");
+        } else {
+
+            try {
+                String id = tblTravelAgent.getModel().getValueAt(row, col).toString();
+                System.out.println("ID = " + id);
+                this.travelAgentController.deleteDataTravelAgent(Integer.parseInt(id));
+                this.getDataTravelAgent();
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void getDataTravelAgent() throws SQLException {
+        DefaultTableModel dtmTravel = new DefaultTableModel(new String[]{"ID", "Nama", "Code"}, 0);
+        dtmTravel.setRowCount(0);
+        for (TravelAgent ta : this.travelAgentController.getDataTravelAgent(null)) {
+            dtmTravel.addRow(new String[]{String.valueOf(ta.getIdTravelAgent()), ta.getNameTravelAgent(), ta.getCodeTravelAgent()});
+        }
+        tblTravelAgent.setModel(dtmTravel);
+    }
 
     /**
      * @param args the command line arguments
@@ -73,11 +278,26 @@ public class TravelAgenView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TravelAgenView().setVisible(true);
+                try {
+                    new TravelAgenView().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TravelAgenView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnSimpan;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblTravelAgent;
+    private javax.swing.JTextField tfCode;
+    private javax.swing.JTextField tfNama;
     // End of variables declaration//GEN-END:variables
 }

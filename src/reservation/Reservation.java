@@ -5,8 +5,11 @@
  */
 package reservation;
 
+import java.sql.SQLException;
+import view.CustomerView;
 import view.LoginView;
 import view.ReservationView;
+import view.TravelAgenView;
 
 /**
  *
@@ -17,8 +20,11 @@ public class Reservation {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        new LoginView().show();
+    public static void main(String[] args) throws SQLException {
+//        new LoginView().show();
+//        new ReservationView().show();
+//        new CustomerView().show();
+        new TravelAgenView().show();
     }
-    
+
 }

@@ -31,16 +31,22 @@ public class UserController {
         this.arrUser.clear();
         ResultSet rsUser;
         if (user != null) {
-            rsUser = this.dbService.getData("");
+            rsUser = this.dbService.getData("SELECT * FROM SYARIFUDDIN_06989.USERS WHERE ID_USER="+user.getIdUser());
         } else {
-            rsUser = this.dbService.getData("");
+            rsUser = this.dbService.getData("SELECT * FROM SYARIFUDDIN_06989.USERS");
         }
 
         while (rsUser.next()) {
 
             Users u = new Users();
-
+            u.setIdUser(rsUser.getInt("ID_USER"));
+            u.setAddressUser(rsUser.getString(string));
+            u.setEmailUser(rsUser.getString(string));
+            u.setNameUser(rsUser.getString(string));
+            u.setNikUser(rsUser.getInt(string));
+            u.setUsername(rsUser.getString(string));
             RoleUser ru = new RoleUser();
+            
             this.arrUser.add(u);
         }
 
@@ -49,15 +55,24 @@ public class UserController {
 
     public Users doLogin(Users user) {
         try {
-            ResultSet rs = this.dbService.getData("SELECT * FROM FITRIARISQINA_07032.LOGIN_07032 WHERE USERNAME ='" + user.getUsername() + "' AND PASSWORD ='" + user.getPassword() + "'");
-            System.out.println("LOGIN = " + this.dbService.getData("SELECT * FROM FITRIARISQINA_07032.LOGIN_07032 WHERE USERNAME ='" + user.getUsername() + "'"));
+            ResultSet rs = this.dbService.getData("SELECT * FROM USERS JOIN ROLE_USER ON ROLE_USER.ID_ROLE = USERS.ROLE_USER WHERE USERS.USERNAME ='" + user.getUsername() + "' AND USERS.PASSWORD ='" + user.getPassword() + "'");
             rs.next();
             Users u = new Users();
             u.setIdUser(rs.getInt("id_user"));
             u.setUsername(rs.getString("username"));
             u.setPassword(rs.getString("password"));
+            u.setAddressUser(rs.getString("address_user"));
+            u.setEmailUser(rs.getString("email_user"));
+            u.setNameUser(rs.getString("name_user"));
+            u.setNikUser(rs.getInt("nik_user"));
+            u.setRoleUser(rs.getInt("id_role"));
+            
+            RoleUser ru = new RoleUser();
+            ru.setIdRole(rs.getInt("id_role"));
+            ru.setNameRole(rs.getString("name_role"));
+            u.setUserRole(ru);
 
-            return user;
+            return u;
         } catch (Exception e) {
             System.out.println(e);
             return null;
