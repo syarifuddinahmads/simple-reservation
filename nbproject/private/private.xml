@@ -3,25 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/Customer.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/controller/RoomController.java</file>
             <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/config/DatabaseConfig.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/ReservationPayment.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/controller/CustomerController.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/config/Data.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/controller/AdditionalChargeController.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/RoomRate.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/PaymentStatus.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/ReservationType.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/AdditionalCharge.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/view/LoginView.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/controller/UserController.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/controller/ReservationController.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/ReservationStatus.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/RoleUser.java</file>
             <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/config/DatabaseService.java</file>
+            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/view/FormReservationView.java</file>
             <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/Reservation.java</file>
-            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/model/Users.java</file>
+            <file>file:/home/syarifuddin/Me/Tugas/Praktikum%20Basdat/TA/Reservation/src/view/ReservationView.java</file>
         </group>
     </open-files>
 </project-private>

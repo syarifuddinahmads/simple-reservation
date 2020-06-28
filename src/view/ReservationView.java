@@ -102,6 +102,11 @@ public class ReservationView extends javax.swing.JFrame {
         });
 
         btnUser.setText("Users");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,6 +199,15 @@ public class ReservationView extends javax.swing.JFrame {
         this.dispose();
         new LoginView().show();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        this.dispose();
+        try {
+            new UserView().show();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnUserActionPerformed
 
     /**
      * @param args the command line arguments
