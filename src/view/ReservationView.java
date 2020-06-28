@@ -20,6 +20,7 @@ public class ReservationView extends javax.swing.JFrame {
      */
     public ReservationView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -47,6 +48,7 @@ public class ReservationView extends javax.swing.JFrame {
         btnCustomer = new javax.swing.JButton();
         btnTravelAgent = new javax.swing.JButton();
         btnUser = new javax.swing.JButton();
+        btnRoom = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +110,13 @@ public class ReservationView extends javax.swing.JFrame {
             }
         });
 
+        btnRoom.setText("Room");
+        btnRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRoomActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,6 +137,8 @@ public class ReservationView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRoom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnTravelAgent)
@@ -154,7 +165,8 @@ public class ReservationView extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(btnCustomer)
                     .addComponent(btnTravelAgent)
-                    .addComponent(btnUser))
+                    .addComponent(btnUser)
+                    .addComponent(btnRoom))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -178,7 +190,6 @@ public class ReservationView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
-        this.dispose();
         try {
             new CustomerView().show();
         } catch (SQLException ex) {
@@ -187,7 +198,6 @@ public class ReservationView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void btnTravelAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTravelAgentActionPerformed
-        this.dispose();
         try {
             new TravelAgenView().show();
         } catch (SQLException ex) {
@@ -201,13 +211,20 @@ public class ReservationView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-        this.dispose();
         try {
             new UserView().show();
         } catch (SQLException ex) {
             Logger.getLogger(ReservationView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnUserActionPerformed
+
+    private void btnRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomActionPerformed
+        try {
+            new RoomView().show();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRoomActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,6 +270,7 @@ public class ReservationView extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPaymentReservation;
+    private javax.swing.JButton btnRoom;
     private javax.swing.JButton btnTravelAgent;
     private javax.swing.JButton btnUser;
     private javax.swing.JButton jButton3;

@@ -16,6 +16,7 @@ public class PaymentReservationView extends javax.swing.JFrame {
      */
     public PaymentReservationView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

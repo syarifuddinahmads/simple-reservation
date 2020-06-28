@@ -16,6 +16,7 @@ public class AdditionalChargeView extends javax.swing.JFrame {
      */
     public AdditionalChargeView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

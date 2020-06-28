@@ -33,6 +33,7 @@ public class CustomerView extends javax.swing.JFrame {
 
     public CustomerView() throws SQLException {
         initComponents();
+        setLocationRelativeTo(null);
         this.customerController = new CustomerController();
         this.getDataCustomer();
     }

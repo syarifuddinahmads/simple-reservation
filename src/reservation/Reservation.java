@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import view.CustomerView;
 import view.LoginView;
 import view.ReservationView;
+import view.RoomView;
 import view.TravelAgenView;
 import view.UserView;
 
@@ -20,13 +21,15 @@ public class Reservation {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
     public static void main(String[] args) throws SQLException {
-        new LoginView().show();
+//        new LoginView().show();
 //        new ReservationView().show();
 //        new CustomerView().show();
 //        new TravelAgenView().show();
 //        new UserView().show();
+        new RoomView().show();
     }
 
 }

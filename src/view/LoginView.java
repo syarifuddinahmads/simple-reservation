@@ -26,6 +26,7 @@ public class LoginView extends javax.swing.JFrame {
     private UserController userController;
     public LoginView() {
         initComponents();
+        setLocationRelativeTo(null);
         this.userController = new UserController();
     }
 

@@ -16,6 +16,7 @@ public class FormReservationView extends javax.swing.JFrame {
      */
     public FormReservationView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

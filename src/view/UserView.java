@@ -37,6 +37,7 @@ public class UserView extends javax.swing.JFrame {
 
     public UserView() throws SQLException {
         initComponents();
+        setLocationRelativeTo(null);
         this.userController = new UserController();
         this.getDataUser();
         this.getDataRole();

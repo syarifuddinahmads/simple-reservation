@@ -29,6 +29,7 @@ public class TravelAgenView extends javax.swing.JFrame {
 
     public TravelAgenView() throws SQLException {
         initComponents();
+        setLocationRelativeTo(null);
         this.travelAgentController = new TravelAgentController();
         this.getDataTravelAgent();
     }
