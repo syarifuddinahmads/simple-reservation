@@ -37,7 +37,7 @@ public class RoomController {
         if (rr != null) {
             rsRoomRate = this.dbService.getData("SELECT * FROM SYARIFUDDIN_06989.ROOM_RATE WHERE ID_ROOM_RATE=" + rr.getIdRoomRate());
         } else {
-            rsRoomRate = this.dbService.getData("SELECT * FROM SYARIFUDDIN_06989.ROOM_RATE");
+            rsRoomRate = this.dbService.getData("SELECT * FROM SYARIFUDDIN_06989.LIST_ROOM_RATE");
         }
 
         while (rsRoomRate.next()) {
@@ -181,10 +181,10 @@ public class RoomController {
         try {
             if (roomType.getIdRoomType() > 0) {
                 System.out.println("UPDATE ROOM TYPE");
-                this.dbService.postData("UPDATE SYARIFUDDIN_06989.ROOM_TYPE SET NAME_ROOM_TYPE='"+roomType.getNameRoomType()+"', ROOM_RATE="+roomType.getRoomRate()+", CREATED_AT='', MODIFIED_AT='' WHERE ID_ROOM_TYPE="+roomType.getIdRoomType());
+                this.dbService.postData("UPDATE SYARIFUDDIN_06989.ROOM_TYPE SET NAME_ROOM_TYPE='" + roomType.getNameRoomType() + "', ROOM_RATE=" + roomType.getRoomRate() + ", CREATED_AT='', MODIFIED_AT='' WHERE ID_ROOM_TYPE=" + roomType.getIdRoomType());
             } else {
                 System.out.println("INSERT ROOM TYPE");
-                this.dbService.postData("INSERT INTO SYARIFUDDIN_06989.ROOM_TYPE VALUES(SEQ_ROOM_TYPE.NEXTVAL, '"+roomType.getNameRoomType()+"', "+roomType.getRoomRate()+", '', '')");
+                this.dbService.postData("INSERT INTO SYARIFUDDIN_06989.ROOM_TYPE VALUES(SEQ_ROOM_TYPE.NEXTVAL, '" + roomType.getNameRoomType() + "', " + roomType.getRoomRate() + ", '', '')");
             }
 
         } catch (Exception ex) {
@@ -195,12 +195,12 @@ public class RoomController {
 
     public void insertDataRoomRate(RoomRate roomRate) {
         try {
-            if (roomRate.getIdRoomRate()> 0) {
+            if (roomRate.getIdRoomRate() > 0) {
                 System.out.println("UPDATE ROOM RATE");
-                this.dbService.postData("UPDATE SYARIFUDDIN_06989.ROOM_RATE SET NAME_ROOM_RATE='"+roomRate.getNameRoomRate()+"', PRICE_ROOM_RATE="+roomRate.getPriceRoomRate()+", CREATED_AT='', MODIFIED_AT='' WHERE ID_ROOM_RATE=" + roomRate.getIdRoomRate());
+                this.dbService.postData("UPDATE SYARIFUDDIN_06989.ROOM_RATE SET NAME_ROOM_RATE='" + roomRate.getNameRoomRate() + "', PRICE_ROOM_RATE=" + roomRate.getPriceRoomRate() + ", CREATED_AT='', MODIFIED_AT='' WHERE ID_ROOM_RATE=" + roomRate.getIdRoomRate());
             } else {
                 System.out.println("INSERT ROOM RATE");
-                this.dbService.postData("INSERT INTO SYARIFUDDIN_06989.ROOM_RATE VALUES(SEQ_ROOM_RATE.NEXTVAL, '"+roomRate.getNameRoomRate()+"', "+roomRate.getPriceRoomRate()+", '', '')");
+                this.dbService.postData("INSERT INTO SYARIFUDDIN_06989.ROOM_RATE VALUES(SEQ_ROOM_RATE.NEXTVAL, '" + roomRate.getNameRoomRate() + "', " + roomRate.getPriceRoomRate() + ", '', '')");
             }
 
         } catch (Exception ex) {

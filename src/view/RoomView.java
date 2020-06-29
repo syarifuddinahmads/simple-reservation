@@ -225,11 +225,19 @@ public class RoomView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnrRoomRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrRoomRateActionPerformed
-        new RoomRateView().show();
+        try {
+            new RoomRateView().show();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnrRoomRateActionPerformed
 
     private void btnRoomTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomTypeActionPerformed
-        new RoomTypeView().show();
+        try {
+            new RoomTypeView().show();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRoomTypeActionPerformed
 
     private void bnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnCancelActionPerformed
@@ -289,29 +297,31 @@ public class RoomView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int col = 0;
-        int row = tblRoom.getSelectedRow();
-        System.out.println("ROW = " + row);
-        if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Room belum dipilih, Pilih Room terlebih dahulu !");
-        } else {
-            String id = tblRoom.getModel().getValueAt(row, col).toString();
-            System.out.println("ID = " + id);
-            try {
+
+        try {
+            int col = 0;
+            int row = tblRoom.getSelectedRow();
+            System.out.println("ROW = " + row);
+            if (row < 0) {
+                JOptionPane.showMessageDialog(null, "Room belum dipilih, Pilih Room terlebih dahulu !");
+            } else {
+                String id = tblRoom.getModel().getValueAt(row, col).toString();
+                System.out.println("ID = " + id);
                 Room room = new Room();
                 room.setIdRoom(Integer.parseInt(id));
                 Room r = this.roomController.getDataRoom(room).get(0);
 
-                idRoom= r.getIdRoom();
+                idRoom = r.getIdRoom();
                 tfRoomNumber.setText(String.valueOf(r.getRoomNumber()));
-                cbRoomRate.getModel().setSelectedItem(r.getRoomtype().getRoomrate().getIdRoomRate()+" - "+r.getRoomtype().getRoomrate().getNameRoomRate());
-                cbRoomType.getModel().setSelectedItem(r.getRoomtype().getIdRoomType()+" - "+r.getRoomtype().getNameRoomType());
+                cbRoomRate.getModel().setSelectedItem(r.getRoomtype().getRoomrate().getIdRoomRate() + " - " + r.getRoomtype().getRoomrate().getNameRoomRate());
+                cbRoomType.getModel().setSelectedItem(r.getRoomtype().getIdRoomType() + " - " + r.getRoomtype().getNameRoomType());
 
                 btnSimpan.setText("Update");
-            } catch (SQLException ex) {
-                Logger.getLogger(UserView.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserView.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void getDataRoom() throws SQLException {
@@ -324,35 +334,44 @@ public class RoomView extends javax.swing.JFrame {
     }
 
     private void getDataRoomRate() throws SQLException {
-        DefaultComboBoxModel dcbrr = new DefaultComboBoxModel();
-        dcbrr.addElement("0 - Pilih Room Rate ");
-        for (RoomRate rr : this.roomController.getDataRoomRate(null)) {
-            dcbrr.addElement(rr.getIdRoomRate() + " - " + rr.getNameRoomRate());
-        }
-        this.cbRoomRate.removeAllItems();
-        this.cbRoomRate.setModel(dcbrr);
 
-        this.cbRoomRate.addItemListener((ItemEvent e) -> {
-            String item = cbRoomRate.getSelectedItem().toString();
-            int id = Integer.parseInt(item.substring(0, item.indexOf(" -")));
-            if (id > 0) {
-                roomRate = id;
+        try {
+            DefaultComboBoxModel dcbrr = new DefaultComboBoxModel();
+            dcbrr.addElement("0 - Pilih Room Rate ");
+            for (RoomRate rr : this.roomController.getDataRoomRate(null)) {
+                dcbrr.addElement(rr.getIdRoomRate() + " - " + rr.getNameRoomRate());
+            }
+            this.cbRoomRate.removeAllItems();
+            this.cbRoomRate.setModel(dcbrr);
+
+            this.cbRoomRate.addItemListener((ItemEvent e) -> {
+
                 try {
-                    DefaultComboBoxModel dcbrt = new DefaultComboBoxModel();
-                    dcbrt.addElement("0 - Pilih Room Type ");
-                    for (RoomType rt : this.roomController.getDataRoomTypeByRate(roomRate)) {
-                        dcbrt.addElement(rt.getIdRoomType() + " - " + rt.getNameRoomType());
+                    String item = cbRoomRate.getSelectedItem().toString();
+                    int id = Integer.parseInt(item.substring(0, item.indexOf(" -")));
+                    if (id > 0) {
+                        roomRate = id;
+                        DefaultComboBoxModel dcbrt = new DefaultComboBoxModel();
+                        dcbrt.addElement("0 - Pilih Room Type ");
+
+                        for (RoomType rt : this.roomController.getDataRoomTypeByRate(roomRate)) {
+                            dcbrt.addElement(rt.getIdRoomType() + " - " + rt.getNameRoomType());
+                        }
+
+                        this.cbRoomType.removeAllItems();
+                        this.cbRoomType.setModel(dcbrt);
+
+                    } else {
+                        roomRate = 0;
                     }
-                    this.cbRoomType.removeAllItems();
-                    this.cbRoomType.setModel(dcbrt);
                 } catch (SQLException ex) {
                     Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            } else {
-                roomRate = 0;
-            }
-        });
     }
 
     /**

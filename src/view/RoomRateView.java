@@ -5,6 +5,14 @@
  */
 package view;
 
+import controller.RoomController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.RoomRate;
+
 /**
  *
  * @author syarifuddin
@@ -14,9 +22,16 @@ public class RoomRateView extends javax.swing.JFrame {
     /**
      * Creates new form RoomRateView
      */
-    public RoomRateView() {
+    private RoomController roomController;
+    private int idRoomRate = 0;
+    private String priceRoomRate = "";
+    private String nameRoomRate = "";
+
+    public RoomRateView() throws SQLException {
         initComponents();
         setLocationRelativeTo(null);
+        this.roomController = new RoomController();
+        this.getDataRoomRate();
     }
 
     /**
@@ -31,17 +46,17 @@ public class RoomRateView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfNama = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tfPrice = new javax.swing.JTextField();
         btnSimpan = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRoomRate = new javax.swing.JTable();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,8 +67,18 @@ public class RoomRateView extends javax.swing.JFrame {
         jLabel3.setText("Price");
 
         btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         tblRoomRate.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,11 +93,26 @@ public class RoomRateView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblRoomRate);
 
-        jButton3.setText("Delete");
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Edit");
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Close");
+        btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,14 +138,14 @@ public class RoomRateView extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
-                            .addComponent(jTextField1)))
+                            .addComponent(tfPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                            .addComponent(tfNama)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5)
+                        .addComponent(btnClose)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(btnEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(btnDelete)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -117,11 +157,11 @@ public class RoomRateView extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -133,14 +173,115 @@ public class RoomRateView extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnDelete)
+                    .addComponent(btnEdit)
+                    .addComponent(btnClose))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        tfPrice.setText("");
+        tfNama.setText("");
+        btnSimpan.setText("Simpan");
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+
+        try {
+            int col = 0;
+            int row = tblRoomRate.getSelectedRow();
+            System.out.println("ROW = " + row);
+            if (row < 0) {
+                JOptionPane.showMessageDialog(null, "Room Rate belum dipilih, Pilih Room Rate terlebih dahulu !");
+            } else {
+                String id = tblRoomRate.getModel().getValueAt(row, col).toString();
+                System.out.println("ID = " + id);
+                RoomRate rr = new RoomRate();
+                rr.setIdRoomRate(Integer.parseInt(id));
+                RoomRate rate = this.roomController.getDataRoomRate(rr).get(0);
+
+                idRoomRate = rate.getIdRoomRate();
+                tfNama.setText(rate.getNameRoomRate());
+                tfPrice.setText(rate.getPriceRoomRate().toString());
+
+                btnSimpan.setText("Update");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomRateView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+
+        try {
+            int col = 0;
+            int row = tblRoomRate.getSelectedRow();
+            if (row < 0) {
+                JOptionPane.showMessageDialog(null, "Room Rate belum dipilih, Pilih Room Rate terlebih dahulu !");
+            } else {
+
+                String id = tblRoomRate.getModel().getValueAt(row, col).toString();
+                System.out.println("ID = " + id);
+                this.roomController.deleteRoomRate(Integer.parseInt(id));
+                this.getDataRoomRate();
+
+                tfPrice.setText("");
+                tfNama.setText("");
+                btnSimpan.setText("Simpan");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomRateView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+
+        try {
+            nameRoomRate = tfNama.getText();
+            priceRoomRate = tfPrice.getText();
+
+            if (nameRoomRate.equals("")) {
+                JOptionPane.showMessageDialog(null, "Nama Room Rate belum diisi, masukkan nama room rate terlebih dahulu !");
+            } else if (priceRoomRate.equals("")) {
+                JOptionPane.showMessageDialog(null, "Harga Room Rate belum diisi, masukkan harga room rate terlebih dahulu !");
+            } else {
+
+                RoomRate rate = new RoomRate();
+                rate.setIdRoomRate(idRoomRate);
+                rate.setNameRoomRate(nameRoomRate);
+                rate.setPriceRoomRate(Double.parseDouble(priceRoomRate));
+
+                this.roomController.insertDataRoomRate(rate);
+
+                tfPrice.setText("");
+                tfNama.setText("");
+                btnSimpan.setText("Simpan");
+                this.getDataRoomRate();
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomRateView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void getDataRoomRate() throws SQLException {
+        DefaultTableModel dtmRoomRate = new DefaultTableModel(new String[]{"ID", "Name", "Price"}, 0);
+        dtmRoomRate.setRowCount(0);
+        for (RoomRate rr : this.roomController.getDataRoomRate(null)) {
+            dtmRoomRate.addRow(new String[]{String.valueOf(rr.getIdRoomRate()), rr.getNameRoomRate(), rr.getPriceRoomRate().toString()});
+        }
+        tblRoomRate.setModel(dtmRoomRate);
+    }
 
     /**
      * @param args the command line arguments
@@ -172,25 +313,29 @@ public class RoomRateView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RoomRateView().setVisible(true);
+                try {
+                    new RoomRateView().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RoomRateView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tblRoomRate;
+    private javax.swing.JTextField tfNama;
+    private javax.swing.JTextField tfPrice;
     // End of variables declaration//GEN-END:variables
 }
