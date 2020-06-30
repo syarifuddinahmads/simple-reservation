@@ -5,6 +5,16 @@
  */
 package view;
 
+import controller.AdditionalChargeController;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.AdditionalCharge;
+import model.Reservation;
+
 /**
  *
  * @author syarifuddin
@@ -14,9 +24,25 @@ public class AdditionalChargeView extends javax.swing.JFrame {
     /**
      * Creates new form AdditionalChargeView
      */
-    public AdditionalChargeView() {
+    String nameCharge = "";
+    String amountCharge = "";
+    int idReservation = 0;
+    AdditionalChargeController chargeController;
+    ArrayList<AdditionalCharge> arrCharge;
+
+    public AdditionalChargeView(Reservation res) {
         initComponents();
         setLocationRelativeTo(null);
+        this.chargeController = new AdditionalChargeController();
+        this.arrCharge = new ArrayList<>();
+        this.idReservation = res.getIdReservation();
+        lblCode.setText(res.getCodeReservation());
+        this.getDataCharge();
+       
+    }
+
+    private AdditionalChargeView() {
+
     }
 
     /**
@@ -28,21 +54,242 @@ public class AdditionalChargeView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        tfNameCharge = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tfAmount = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        lblCode = new javax.swing.JLabel();
+        btnTambah = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCharge = new javax.swing.JTable();
+        btnClose = new javax.swing.JButton();
+        btnSimpan = new javax.swing.JButton();
+        btnCancelCharge = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        jLabel1.setText("ADDITIONAL CHARGE");
+
+        jLabel2.setText("Name Charge");
+
+        jLabel3.setText("Amount");
+
+        jLabel4.setText("CODE :");
+
+        btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        tblCharge.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblCharge);
+
+        btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+
+        btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
+
+        btnCancelCharge.setText("Cancel");
+        btnCancelCharge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelChargeActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnClose)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelCharge)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSimpan))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCode, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancel)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTambah))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(tfNameCharge, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(lblCode))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(39, 39, 39))
+                    .addComponent(tfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfNameCharge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTambah)
+                    .addComponent(btnCancel))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClose)
+                    .addComponent(btnSimpan)
+                    .addComponent(btnCancelCharge)
+                    .addComponent(btnDelete))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        tfNameCharge.setText("");
+        tfAmount.setText("");
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        nameCharge = tfNameCharge.getText();
+        amountCharge = tfAmount.getText();
+
+        if (nameCharge.equals("")) {
+            JOptionPane.showMessageDialog(null, "Nama Charge belum diinputkan, inputkan nama terlebih dahulu !");
+        } else if (amountCharge.equals("")) {
+            JOptionPane.showMessageDialog(null, "Harga Charge belum diinputkan, inputkan harga terlebih dahulu !");
+        } else {
+            AdditionalCharge ac = new AdditionalCharge();
+            ac.setNameCharge(nameCharge);
+            ac.setAmountCharge(Double.parseDouble(amountCharge));
+            ac.setIdReservation(idReservation);
+            this.arrCharge.add(ac);
+
+            this.getDataCharge();
+            tfNameCharge.setText("");
+            tfAmount.setText("");
+        }
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnCancelChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelChargeActionPerformed
+        if (this.arrCharge.size() < 1) {
+            JOptionPane.showMessageDialog(null, "Belum ada charge yang ditambahkan !");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda akan membatalkan penambahan charge ?", "Batalkan Charge !",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                this.arrCharge.clear();
+                this.getDataCharge();
+            }
+        }
+    }//GEN-LAST:event_btnCancelChargeActionPerformed
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        if (this.arrCharge.size() < 1) {
+            JOptionPane.showMessageDialog(null, "Belum ada charge yang ditambahkan !");
+        } else {
+            this.chargeController.insertAdditionalCharge(this.arrCharge);
+            tfAmount.setText("");
+            tfNameCharge.setText("");
+            this.arrCharge.clear();
+        }
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+
+        int row = this.tblCharge.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Customer belum dipilih, Pilih customer terlebih dahulu !");
+        } else {
+            this.arrCharge.remove(row);
+            this.getDataCharge();
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void getDataCharge() {
+        DefaultTableModel dtmCharge = new DefaultTableModel(new String[]{"Nama", "Harga"}, 0);
+        dtmCharge.setRowCount(0);
+        for (AdditionalCharge ac : this.arrCharge) {
+            dtmCharge.addRow(new String[]{ac.getNameCharge(), String.valueOf(ac.getAmountCharge())});
+        }
+        this.tblCharge.setModel(dtmCharge);
+    }
 
     /**
      * @param args the command line arguments
@@ -80,5 +327,21 @@ public class AdditionalChargeView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnCancelCharge;
+    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSimpan;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblCode;
+    private javax.swing.JTable tblCharge;
+    private javax.swing.JTextField tfAmount;
+    private javax.swing.JTextField tfNameCharge;
     // End of variables declaration//GEN-END:variables
 }

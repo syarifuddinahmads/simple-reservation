@@ -18,6 +18,19 @@ public class Customer {
     String address;
     String nik;
 
+    public Customer() {
+    }
+    
+
+    public Customer(int idCustomer, String name, String email, String phoneNumber, String address, String nik) {
+        this.idCustomer = idCustomer;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.nik = nik;
+    }
+
     public int getIdCustomer() {
         return idCustomer;
     }

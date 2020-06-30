@@ -89,9 +89,28 @@ public class UserController {
         }
 
     }
+    
+    public void insertDataRoleUser(RoleUser ru){
+        try {
+            if (ru.getIdRole() > 0) {
+                System.out.println("UPDATE ROLE");
+                this.dbService.postData("UPDATE SYARIFUDDIN_06989.ROLE_USER SET NAME_ROLE='"+ru.getNameRole()+"', CREATED_AT='', MODIFIED_AT='' WHERE ID_ROLE="+ru.getIdRole());
+            } else {
+                System.out.println("INSERT ROLE");
+                this.dbService.postData("INSERT INTO SYARIFUDDIN_06989.ROLE_USER VALUES(SEQ_ROLE_USER.NEXTVAL, '"+ru.getNameRole()+"', '', '')");
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
 
     public void deleteDataUser(int id) {
         this.dbService.postData("DELETE FROM SYARIFUDDIN_06989.USERS WHERE ID_USER=" + id);
+    }
+    
+    public void deleteDataRoleUser(int id) {
+        this.dbService.postData("DELETE FROM SYARIFUDDIN_06989.ROLE_USER WHERE ID_ROLE_USER=" + id);
     }
 
     public Users doLogin(Users user) {
