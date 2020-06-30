@@ -6,7 +6,8 @@
 package reservation;
 
 import java.sql.SQLException;
-import view.ReservationView;
+import view.FormReservationView;
+import view.LoginView;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Reservation {
      * @throws java.sql.SQLException
      */
     public static void main(String[] args) throws SQLException {
-        new ReservationView().show();
+        new LoginView().show();
     }
 
 }

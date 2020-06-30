@@ -5,10 +5,13 @@
  */
 package controller;
 
+import config.Data;
 import config.DatabaseService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 import model.Customer;
 import model.Reservation;
 import model.ReservationStatus;
@@ -45,10 +48,10 @@ public class ReservationController {
 
     public ArrayList<Reservation> getDataReservation(Reservation r) throws SQLException {
         this.arrReservation.clear();
-        
+
         ResultSet rsRes;
         if (r != null) {
-            System.out.println("============= "+r.getIdReservation()+r.getCodeReservation());
+            System.out.println("============= " + r.getIdReservation() + r.getCodeReservation());
             rsRes = this.databaseService.getData("SELECT * FROM RESERVATION WHERE ID_RESERVATION =" + r.getIdReservation());
         } else {
             rsRes = this.databaseService.getData("SELECT * FROM RESERVATION");
@@ -117,7 +120,7 @@ public class ReservationController {
 
     public ArrayList<ReservationStatus> getDataReservationStatus(ReservationStatus rs) throws SQLException {
         ResultSet rsRes;
-        if (rs.getIdReservationStatus() > 0) {
+        if (rs != null) {
             rsRes = this.databaseService.getData("SELECT * FROM RESERVATION_STATUS WHERE ID_RESERVATION_STATUS=" + rs.getIdReservationStatus());
         } else {
             rsRes = this.databaseService.getData("SELECT * FROM RESERVATION_STATUS");
@@ -136,7 +139,7 @@ public class ReservationController {
 
     public ArrayList<ReservationType> getDataReservationType(ReservationType rt) throws SQLException {
         ResultSet rsRes;
-        if (rt.getIdReseravationType() > 0) {
+        if (rt != null) {
             rsRes = this.databaseService.getData("SELECT * FROM RESERVATION_TYPE WHERE ID_RESERVATION_TYPE=" + rt.getIdReseravationType());
         } else {
             rsRes = this.databaseService.getData("SELECT * FROM RESERVATION_TYPE");
@@ -152,9 +155,33 @@ public class ReservationController {
 
         return this.arrReservationType;
     }
-    
-    public void deleteReservation(int idRes){
-        this.databaseService.postData("DELETE FROM SYARIFUDDIN_06989.RESERVATION WHERE ID_RESERVATION="+idRes);
+
+    public void insertReservation(Reservation r) throws SQLException {
+        String codeReservation = "RES-" + this.generateCode();
+        this.customerController.insertDataCustomer(r.getCustomer());
+        ResultSet customer = this.databaseService.getData("SELECT MAX(ID_CUSTOMER) AS ID_CUSTOMER FROM CUSTOMER");
+        customer.next();
+        int idCustomer = customer.getInt("id_customer");
+        int idUserLogin = Data.userLogin.getIdUser();
+
+        System.out.println("ARRIVAL BEFORE = " + r.getArrivalDate());
+        String arrivalDate = new SimpleDateFormat("YYYY-MM-d HH:MM:SS").format(r.getArrivalDate());
+        System.out.println("ARRIVAL AFTER = " + arrivalDate);
+
+        System.out.println("ARRIVAL BEFORE = " + r.getDepartureDate());
+        String departureDate = new SimpleDateFormat("YYYY-MM-d HH:MM:SS").format(r.getDepartureDate());
+        System.out.println("ARRIVAL AFTER = " + departureDate);
+
+        this.databaseService.postData("INSERT INTO SYARIFUDDIN_06989.RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, '" + codeReservation + "', 'TO_TIMESTAMP(" + arrivalDate + ", 'YYYY-MM-d HH:MM:SS')', 'TO_TIMESTAMP(" + arrivalDate + ", 'YYYY-MM-d HH:MM:SS')', 'TO_TIMESTAMP(" + departureDate + ", 'YYYY-MM-d HH:MM:SS')', " + r.getLongStay() + ", 'TO_TIMESTAMP(" + arrivalDate + ", 'YYYY-MM-d HH:MM:SS')', 'TO_TIMESTAMP(" + arrivalDate + ", 'YYYY-MM-d HH:MM:SS')', " + idCustomer + ", " + r.getIdRoom() + ", " + r.getReservationStatus() + ", " + r.getReservationType() + ", '" + idUserLogin + "', '" + idUserLogin + "', " + r.getTravelAgent() + ", 'TO_TIMESTAMP(" + arrivalDate + ", 'YYYY-MM-d HH:MM:SS')', 'TO_TIMESTAMP(" + arrivalDate + ", 'YYYY-MM-d HH:MM:SS')')");
+    }
+
+    private int generateCode() {
+        Random r = new Random(System.currentTimeMillis());
+        return 10000 + r.nextInt(20000);
+    }
+
+    public void deleteReservation(int idRes) {
+        this.databaseService.postData("DELETE FROM SYARIFUDDIN_06989.RESERVATION WHERE ID_RESERVATION=" + idRes);
     }
 
 }

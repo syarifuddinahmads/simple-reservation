@@ -50,7 +50,7 @@ public class ReservationView extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         btnAddCharge = new javax.swing.JButton();
         btnPaymentReservation = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnCustomer = new javax.swing.JButton();
         btnTravelAgent = new javax.swing.JButton();
@@ -99,7 +99,12 @@ public class ReservationView extends javax.swing.JFrame {
 
         btnPaymentReservation.setText("Payment Reservation");
 
-        jButton5.setText("Edit");
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
         jLabel2.setText("RESERVATION");
@@ -164,7 +169,7 @@ public class ReservationView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAddCharge)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPaymentReservation)))
                 .addContainerGap())
@@ -194,7 +199,7 @@ public class ReservationView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCharge)
                     .addComponent(btnPaymentReservation)
-                    .addComponent(jButton5))
+                    .addComponent(btnEdit))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -239,7 +244,11 @@ public class ReservationView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRoomActionPerformed
 
     private void btnCreateReservasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateReservasiActionPerformed
-        new FormReservationView().show();
+        try {
+            new FormReservationView(null).show();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCreateReservasiActionPerformed
 
     private void btnAddChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddChargeActionPerformed
@@ -255,13 +264,37 @@ public class ReservationView extends javax.swing.JFrame {
                 Reservation r = new Reservation();
                 r.setIdReservation(Integer.parseInt(id));
                 Reservation res = this.reservationController.getDataReservation(r).get(0);
-                
+
                 new AdditionalChargeView(res).show();
             } catch (SQLException ex) {
                 Logger.getLogger(ReservationView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnAddChargeActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        int col = 0;
+        int row = tblReservation.getSelectedRow();
+        System.out.println("ROW = " + row);
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Reservasi belum dipilih, Pilih reservasi terlebih dahulu !");
+        } else {
+            String id = tblReservation.getModel().getValueAt(row, col).toString();
+            System.out.println("ID = " + id);
+            try {
+                Reservation r = new Reservation();
+                r.setIdReservation(Integer.parseInt(id));
+                Reservation res = this.reservationController.getDataReservation(r).get(0);
+                if(res != null){
+                    new FormReservationView(res).show();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan data !");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ReservationView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
 
     private void getDataReservation() throws SQLException {
         DefaultTableModel dtmRes = new DefaultTableModel(new String[]{
@@ -328,12 +361,12 @@ public class ReservationView extends javax.swing.JFrame {
     private javax.swing.JButton btnCariReservasi;
     private javax.swing.JButton btnCreateReservasi;
     private javax.swing.JButton btnCustomer;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPaymentReservation;
     private javax.swing.JButton btnRoom;
     private javax.swing.JButton btnTravelAgent;
     private javax.swing.JButton btnUser;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
